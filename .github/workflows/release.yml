@@ -25,7 +25,7 @@ jobs:
     - name: Generate tag and version
       id: version_info
       run: |
-        VERSION=$(date -u +'%Y.%m.%d.%H%M')
+        VERSION=$(date -u +'%Y.%m.%d%H%M')
         echo "TAG_NAME=$VERSION" >> $GITHUB_ENV
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
