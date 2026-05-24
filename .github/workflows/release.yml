@@ -2,19 +2,20 @@ name: Build and Release Addon
 
 on:
   push:
-    tags: ["*"]
-    branches: [ main, master ]
-  pull_request:
     branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout repo
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Install dependencies
       run: |
@@ -26,31 +27,23 @@ jobs:
         chmod +x build_linux.sh
         ./build_linux.sh
 
-    - name: Upload packaged addon artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: packaged_addon
-        path: ./*.nvda-addon
+    - name: Generate tag and release info
+      id: release_info
+      run: |
+        TAG_NAME=$(date +'%Y-%m-%d_%H-%M')
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
-  release:
-    runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    needs: ["build"]
-    permissions:
-      contents: write
-    steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
-
-    - name: Download packaged addon
-      uses: actions/download-artifact@v4
-      with:
-        name: packaged_addon
-        path: .
+    - name: Create and push tag
+      run: |
+        git config --local user.name 'github-actions'
+        git config --local user.email 'github-actions@github.com'
+        git tag ${{ env.TAG_NAME }}
+        git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ${{ env.TAG_NAME }}
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: ${{ env.TAG_NAME }}
+        name: Version ${{ env.TAG_NAME }}
         files: ./*.nvda-addon
         fail_on_unmatched_files: true
-        prerelease: ${{ contains(github.ref, '-') }}
