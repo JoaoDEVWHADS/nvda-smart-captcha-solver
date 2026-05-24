@@ -14,6 +14,23 @@ rm -rf globalPlugins/captchaSolver/lib
 cp manifest.ini build_tmp/
 cp -r globalPlugins build_tmp/
 cp -r docs build_tmp/doc
+
+# Compile translations
+if [ -d "locale" ]; then
+    echo "Compiling translations..."
+    mkdir -p build_tmp/locale
+    for lang in locale/*; do
+        if [ -d "$lang" ]; then
+            lang_code=$(basename "$lang")
+            mkdir -p "build_tmp/locale/$lang_code/LC_MESSAGES"
+            if [ -f "$lang/LC_MESSAGES/nvda.po" ]; then
+                msgfmt -o "build_tmp/locale/$lang_code/LC_MESSAGES/nvda.mo" "$lang/LC_MESSAGES/nvda.po"
+                echo "  ✓ Compiled $lang_code"
+            fi
+        fi
+    done
+fi
+
 cd build_tmp
 zip -r "../$OUTPUT_FILE" *
 cd ..

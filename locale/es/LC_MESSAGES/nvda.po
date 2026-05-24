@@ -1,0 +1,118 @@
+#
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Release: {}"
+msgstr "Versión: {}"
+
+msgid "&Download and Install"
+msgstr "&Descargar e Instalar"
+
+msgid "&Close"
+msgstr "&Cerrar"
+
+msgid "Downloading update... Please wait."
+msgstr "Descargando actualización... Por favor, espera."
+
+msgid "Error: Failed to download update"
+msgstr "Error: fallo al descargar la actualización"
+
+msgid "Error: Failed to install update"
+msgstr "Error: fallo al instalar la actualización"
+
+msgid "Error: Update failed. Check NVDA log for details."
+msgstr "Error: fallo en la actualización. Consulta el log de NVDA para más detalles."
+
+msgid "Update installed successfully! NVDA needs to restart."
+msgstr "¡Actualización instalada con éxito! NVDA debe reiniciarse."
+
+msgid "Update Installed"
+msgstr "Actualización Instalada"
+
+msgid "Update failed because files are in use.\n"
+"\n"
+"Please RESTART NVDA and try updating immediately,\n"
+"\n"
+"WITHOUT opening the add-on settings."
+msgstr "La actualización falló porque los archivos están en uso.\n"
+"\n"
+"Por favor, REINICIA NVDA e intenta actualizar inmediatamente,\n"
+"\n"
+"SIN abrir la configuración del complemento."
+
+msgid "Update Failed - Files Locked"
+msgstr "Fallo en la actualización - Archivos bloqueados"
+
+msgid "Update failed because files are in use.\n"
+"\n"
+"Please RESTART NVDA and try updating immediately,\n"
+"\n"
+"WITHOUT opening the volume control dialog."
+msgstr "La actualización falló porque los archivos están en uso.\n"
+"\n"
+"Por favor, REINICIA NVDA e intenta actualizar inmediatamente,\n"
+"\n"
+"SIN abrir el diálogo del control de volumen."
+
+msgid "Captcha Solver"
+msgstr "Solucionador de Captcha"
+
+msgid "Google Gemini API Key:"
+msgstr "Clave de API de Google Gemini:"
+
+msgid "Please configure the Gemini API Key in NVDA Settings."
+msgstr "Por favor, configure la clave de API de Gemini en la configuración de NVDA."
+
+msgid "Could not determine location of the active window."
+msgstr "No se pudo determinar la ubicación de la ventana activa."
+
+msgid "Window has no visible dimensions."
+msgstr "La ventana no tiene dimensiones visibles."
+
+msgid "Analyzing captcha..."
+msgstr "Analizando el captcha..."
+
+msgid "Captcha solution: "
+msgstr "Solución del captcha: "
+
+msgid "Gemini returned no answer."
+msgstr "Gemini no devolvió respuesta."
+
+msgid "Could not parse Gemini response."
+msgstr "No se pudo analizar la respuesta de Gemini."
+
+msgid "API Error: "
+msgstr "Error de API: "
+
+msgid "Error solving captcha: "
+msgstr "Error al resolver captcha: "
+
+msgid "Update Available - Smart Captcha Solver"
+msgstr "Actualización disponible - Smart Captcha Solver"
+
+msgid "A new version of Smart Captcha Solver is available!\n"
+"\n"
+"Current version: {current}\n"
+"New version: {new}\n"
+"\n"
+"Click 'Download and Install' to update automatically."
+msgstr "¡Una nueva versión de Smart Captcha Solver está disponible!\n"
+"\n"
+"Versión actual: {current}\n"
+"Versión nueva: {new}\n"
+"\n"
+"Haz clic en 'Descargar e Instalar' para actualizar automáticamente."
+
+msgid "Smart Captcha Solver has been updated to version {version}.\n"
+"\n"
+"NVDA must be restarted for the update to take effect.\n"
+"\n"
+"Restart NVDA now?"
+msgstr "Smart Captcha Solver se ha actualizado a la versión {version}.\n"
+"\n"
+"NVDA debe reiniciarse para que los cambios surtan efecto.\n"
+"\n"
+"¿Reiniciar NVDA ahora?"
+
