@@ -22,21 +22,49 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y zip gettext
 
+    - name: Generate tag and version
+      id: version_info
+      run: |
+        VERSION=$(date -u +'%Y.%m.%d.%H%M')
+        echo "TAG_NAME=$VERSION" >> $GITHUB_ENV
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Update version in repository files
+      run: |
+        python -c '
+        import os, re
+        version = os.environ["VERSION"]
+        
+        # Update buildVars.py if it exists
+        if os.path.exists("buildVars.py"):
+            with open("buildVars.py", "r", encoding="utf-8") as f:
+                content = f.read()
+            content = re.sub(r"addon_version\s*=\s*[\"'\''\"][^\"'\''\"]+[\"'\''\"]", f"addon_version=\"{version}\"", content)
+            with open("buildVars.py", "w", encoding="utf-8") as f:
+                f.write(content)
+            print(f"Updated version to {version} in buildVars.py")
+            
+        # Update manifest.ini files if they exist
+        manifest_paths = ["manifest.ini", "addon/manifest.ini"]
+        for path in manifest_paths:
+            if os.path.exists(path):
+                with open(path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                content = re.sub(r"version\s*=\s*.+", f"version = {version}", content)
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(content)
+                print(f"Updated version to {version} in {path}")
+        '
+
     - name: Build addon
       run: |
         chmod +x build_linux.sh
         ./build_linux.sh
 
-    - name: Generate tag and release info
-      id: release_info
-      run: |
-        TAG_NAME=$(date +'%Y-%m-%d_%H-%M')
-        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-
     - name: Create and push tag
       run: |
-        git config --local user.name 'github-actions'
-        git config --local user.email 'github-actions@github.com'
+        git config --local user.name "github-actions"
+        git config --local user.email "github-actions@github.com"
         git tag ${{ env.TAG_NAME }}
         git push "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ${{ env.TAG_NAME }}
 
