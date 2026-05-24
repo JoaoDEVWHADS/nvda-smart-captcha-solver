@@ -23,6 +23,8 @@ addonHandler.initTranslation()
 CONF_SECTION = "captchaSolver"
 CONF_KEY_API_KEY = "geminiApiKey"
 
+from .updateChecker import UpdateChecker, show_update_dialog, CURRENT_VERSION
+
 class CaptchaSolverSettingsPanel(SettingsPanel):
 	title = _("Captcha Solver")
 
@@ -50,6 +52,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
 		NVDASettingsDialog.categoryClasses.append(CaptchaSolverSettingsPanel)
+		self.update_checker = UpdateChecker(
+			on_update_available_callback=self._on_update_available
+		)
+		self.update_checker.start()
+
+	def _on_update_available(self, version, download_url, release_info):
+		"""Callback called when an update is available."""
+		show_update_dialog(CURRENT_VERSION, version, download_url, release_info)
 
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
